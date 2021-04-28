@@ -58,7 +58,7 @@ namespace CoordinateNET
             return new GEO() {
                 Latitude = 180.0 * B / Math.PI,
                 Longitude = 180.0 * Math.Atan2(ecef.Y, ecef.X) / Math.PI,
-                Altitude = p * Math.Cos(B) + z * Math.Sin(B) - el.a * Math.Sqrt(1.0 - el.e2 * Math.Pow(Math.Sin(B), 2))
+                Altitude = p * Math.Cos(B) + ecef.Z * Math.Sin(B) - el.a * Math.Sqrt(1.0 - el.e2 * Math.Pow(Math.Sin(B), 2))
             };
         }
         public static GEO ConvertFromECEF(ECEF ecef)
