@@ -8,7 +8,7 @@ namespace CoordinateNET
 {
     internal static class CoordinateConverter
     {
-        class EllipsoidConst
+        private class EllipsoidConst
         {
             /// <summary>
             /// Equatorial radius
