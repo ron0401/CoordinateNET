@@ -12,6 +12,11 @@ namespace CoordinateNET
         public double N { get; set; }
         public double U { get; set; }
         public GEO Datum { get; set; } = new GEO();
+        public GEO ConvertToGEO() 
+        {
+            return CoordinateConverter.ConvertENU2GEO(this);
+        }
+
         public ECEF DatumECEF 
         {
             get
@@ -32,7 +37,6 @@ namespace CoordinateNET
         public double E { get; set; }
         public double N { get; set; }
         public double U { get; set; }
-       
         public GEO Datum { get; set; }
     }
 }

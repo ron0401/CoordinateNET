@@ -46,7 +46,6 @@ namespace CoordinateNET
                 X = (N + geo.Altitude) * Math.Cos(b) * Math.Cos(l),
                 Y = (N + geo.Altitude) * Math.Cos(b) * Math.Sin(l),
                 Z = (N * (1.0 - el.e2) + geo.Altitude) * Math.Sin(b)
-
             };
         }
         internal static GEO ConvertECEF2GEO(ECEF ecef, GEO.TypeOfEllipsoid ellipsoid)
@@ -72,19 +71,49 @@ namespace CoordinateNET
 
         internal static ENU ConvertGEO2ENU(GEO geo, GEO datum)
         {
-            var e = geo.ConvertToECEF();
-            var zero = datum.ConvertToECEF();
-            return new ENU
+            var e           = geo.ConvertToECEF();
+            var zero        = datum.ConvertToECEF();
+            double delta_X  = e.X - zero.X;
+            double delta_Y  = e.Y - zero.Y;
+            double delta_Z  = e.Z - zero.Z;
+            double lambda   = Angle2Radian(geo.Longitude);
+            double phi      = Angle2Radian(geo.Latitude);
+            var enu = new ENU
             {
-                E = -1 * Math.Sin(geo.Longitude * Math.PI / 180) * (e.X - zero.X) + Math.Cos(geo.Longitude * Math.PI / 180) * (e.Y - zero.Y),
-                N = -1 * Math.Sin(geo.Latitude * Math.PI / 180) * Math.Cos(geo.Longitude * Math.PI / 180) * (e.X - zero.X) - Math.Sin(geo.Latitude * Math.PI / 180) * Math.Sin(geo.Longitude * Math.PI / 180) * (e.Y - zero.Y) + Math.Cos(geo.Latitude * Math.PI / 180) * (e.Z - zero.Z),
-                U = Math.Cos(geo.Latitude * Math.PI / 180) * Math.Cos(geo.Longitude * Math.PI / 180) * (e.X - zero.X) + Math.Cos(geo.Latitude) * Math.Sin(geo.Longitude * Math.PI / 180) * (e.Y - zero.Y) + Math.Sin(geo.Latitude * Math.PI / 180) * (e.Z - zero.Z),
+                E = (-1 * sin(lambda))              * delta_X   + (cos(lambda))                   * delta_Y     + (0)           * delta_Z,
+                N = (-1 * sin(phi) * cos(lambda))   * delta_X   + (-1 * sin(phi) * sin(lambda))   * delta_Y     + cos(phi)      * delta_Z,
+                U = (cos(phi) * cos(lambda))        * delta_X   + (cos(phi) * sin(lambda))        * delta_Y     + sin(phi)      * delta_Z,
                 Datum = datum
             };
+            return enu;
         }
-        internal static GEO ConvertENU2GEO(GEO geo, GEO datum)
+
+        private static double sin(double val) { return Math.Sin(val); }
+        private static double cos(double val) { return Math.Cos(val); }
+
+        internal static GEO ConvertENU2GEO(ENU enu)
         {
-            throw new NotImplementedException();
+            var origin      = enu.Datum.ConvertToECEF();
+            double lambda   = Angle2Radian(enu.Datum.Longitude);
+            double phi      = Angle2Radian(enu.Datum.Latitude);
+
+            var ecef = new ECEF()
+            {
+                X = (-1 * sin(lambda))  * enu.E     + (-1 * sin(phi) * cos(lambda))     * enu.N     + (cos(phi) * cos(lambda))  * enu.U  + origin.X,
+                Y = (cos(lambda))       * enu.E     + (-1 * sin(phi) * sin(lambda))     * enu.N     + (cos(phi) * sin(lambda))  * enu.U  + origin.Y,
+                Z = (0)                 * enu.E     + (cos(phi))                        * enu.N     + (sin(phi))                * enu.U  + origin.Z
+            };
+
+            return ConvertECEF2GEO(ecef, enu.Datum.Ellipsoid);
+        }
+
+        internal static double GetDistance(ENU enu_1, ENU enu_2) 
+        {
+            return 0;
+        }
+        private static double Angle2Radian(double angle)
+        {
+            return angle * Math.PI / 180;
         }
     }
 }
