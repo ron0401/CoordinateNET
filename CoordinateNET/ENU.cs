@@ -21,7 +21,7 @@ namespace CoordinateNET
             set
             {
                 var el = this.Datum.Ellipsoid;
-                this.Datum = GEO.ConvertFromECEF(value);
+                this.Datum = CoordinateConverter.ConvertECEF2GEO(value);
                 this.Datum.Ellipsoid = el;
             }
         }

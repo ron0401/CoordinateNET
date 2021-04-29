@@ -8,9 +8,9 @@ namespace CoordinateNET
 {
     public class ECEF : IECEF
     {
-        public double X { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Y { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Z { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
 
     }
 
