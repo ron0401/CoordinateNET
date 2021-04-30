@@ -68,7 +68,7 @@ namespace CoordinateNET
             return ConvertECEF2GEO(ecef, GEO2d.TypeOfEllipsoid.WGS84);
         }
 
-        internal static ENU2d ConvertGEO2ENU(GEO2d geo, GEO2d datum)
+        internal static EastAndNorth ConvertGEO2ENU(GEO2d geo, GEO2d datum)
         {
             var e           = geo.ConvertToECEF();
             var zero        = datum.ConvertToECEF();
@@ -77,12 +77,11 @@ namespace CoordinateNET
             double delta_Z  = e.Z - zero.Z;
             double lambda   = Angle2Radian(geo.Longitude);
             double phi      = Angle2Radian(geo.Latitude);
-            var enu = new ENU2d
-            (
-                (-1 * sin(lambda))              * delta_X   + (cos(lambda))                   * delta_Y     + (0)           * delta_Z,
-                (-1 * sin(phi) * cos(lambda))   * delta_X   + (-1 * sin(phi) * sin(lambda))   * delta_Y     + cos(phi)      * delta_Z,
-                datum
-            );
+            var enu = new EastAndNorth
+            {
+                E = (-1 * sin(lambda))              * delta_X   + (cos(lambda))                   * delta_Y     + (0)           * delta_Z,
+                N = (-1 * sin(phi) * cos(lambda))   * delta_X   + (-1 * sin(phi) * sin(lambda))   * delta_Y     + cos(phi)      * delta_Z
+            };
             return enu;
         }
 

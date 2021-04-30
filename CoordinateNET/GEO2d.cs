@@ -34,7 +34,7 @@ namespace CoordinateNET
 
         public ENU2d ConvertToENU(GEO2d datum)
         {
-            return CoordinateConverter.ConvertGEO2ENU(this, datum);
+            return new ENU2d(this, datum);
         }
 
         public double Longitude { get; set; } = 0;

@@ -8,6 +8,14 @@ namespace CoordinateNET
 {
     public class ENU2d : LocalCoordinate2d, IPossibleConvertToGEO, IPossibleConvertToECEF
     {
+        public ENU2d(GEO2d point, GEO2d datum)
+        {
+            var en = CoordinateConverter.ConvertGEO2ENU(point, datum);
+            this.Datum = datum;
+            this.E = en.E;
+            this.N = en.N;
+        }
+
         public ENU2d(double east, double north, GEO2d datum) 
         {
             this.E = east;
@@ -28,6 +36,10 @@ namespace CoordinateNET
             return CoordinateConverter.ConvertENU2GEO(this);
         }
 
-
+    }
+    internal class EastAndNorth
+    {
+        public double E { get; set; }
+        public double N { get; set; }
     }
 }

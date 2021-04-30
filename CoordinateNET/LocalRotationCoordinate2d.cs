@@ -8,7 +8,8 @@ namespace CoordinateNET
 {
     public abstract class LocalCoordinate2d :Vector2d, ICoordinate2d, ILocalCoordinate
     {
-        public GEO2d Datum { get; set; } = new GEO2d();
+
+        public GEO2d Datum { get; set; }
         public ECEF DatumECEF
         {
             get
@@ -44,6 +45,31 @@ namespace CoordinateNET
     }
     public class LocalRotationCoordinate2d : LocalCoordinate2d, IPossibleConvertToGEO, IPossibleConvertToECEF
     {
+        public LocalRotationCoordinate2d(GEO2d point, GEO2d datum, double rotationAngle) 
+        {
+            var en = CoordinateConverter.ConvertGEO2ENU(point, datum);
+
+            if (IsZero(_RotateAngleDegree))
+            {
+                this.X = en.E;
+                this.Y = en.N;
+                this.RotateAngleRadian = 0;
+            }
+            else
+            {
+                this.RotateAngleRadian = rotationAngle;
+                double angle = -1 * this.RotateAngleRadian;
+                this.X = Math.Cos(angle) * en.E + Math.Sin(angle) * en.N;
+                this.Y = -1 * Math.Sin(angle) * en.E + Math.Cos(angle) * en.N;
+            }
+        }
+        public LocalRotationCoordinate2d(double x, double y, GEO2d datum, double angle)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Datum = datum;
+            this.RotateAngleRadian = angle;
+        }
         public ENU2d ENU
         {
             get
@@ -53,7 +79,7 @@ namespace CoordinateNET
                 double angle = -1 * Angle2Radian(_RotateAngleDegree);
                 double e = Math.Cos(angle) * x + Math.Sin(angle) * y;
                 double n = -1 * Math.Sin(angle) * x + Math.Cos(angle) * y;
-                return new ENU2d(e,n,this.Datum);       
+                return new ENU2d(e, n, this.Datum);
             }
         }
         private double _RotateAngleDegree = 0;
@@ -103,33 +129,33 @@ namespace CoordinateNET
         {
             return radian / Math.PI * 180;
         }
-        private void SetDatum(string[] datum)
-        {
-            if (datum.Length != 3)
-            {
-                throw new Exception();
-            }
-            SetDatum(double.Parse(datum[0]), double.Parse(datum[1]), double.Parse(datum[2]));
-        }
-        private void SetDatum(double[] datum)
-        {
-            if (datum.Length != 3)
-            {
-                throw new Exception();
-            }
-            SetDatum(datum[0], datum[1], datum[2]);
-        }
-        private void SetDatum(GEO2d datum, double rotation)
-        {
-            this.Datum = datum;
-            this.RotateAngleRadian = rotation;
-        }
-        private void SetDatum(double latitude, double longitude, double rotation)
-        {
-            this.Datum.Latitude = latitude;
-            this.Datum.Longitude = longitude;
-            this.RotateAngleRadian = rotation;
-        }
+        //private void SetDatum(string[] datum)
+        //{
+        //    if (datum.Length != 3)
+        //    {
+        //        throw new Exception();
+        //    }
+        //    SetDatum(double.Parse(datum[0]), double.Parse(datum[1]), double.Parse(datum[2]));
+        //}
+        //private void SetDatum(double[] datum)
+        //{
+        //    if (datum.Length != 3)
+        //    {
+        //        throw new Exception();
+        //    }
+        //    SetDatum(datum[0], datum[1], datum[2]);
+        //}
+        //private void SetDatum(GEO2d datum, double rotation)
+        //{
+        //    this.Datum = datum;
+        //    this.RotateAngleRadian = rotation;
+        //}
+        //private void SetDatum(double latitude, double longitude, double rotation)
+        //{
+        //    this.Datum.Latitude = latitude;
+        //    this.Datum.Longitude = longitude;
+        //    this.RotateAngleRadian = rotation;
+        //}
         private bool IsZero(double value)
         {
             if (value < 0.000001 && value > -0.000001)
