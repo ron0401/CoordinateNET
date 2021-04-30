@@ -6,27 +6,29 @@ using System.Threading.Tasks;
 
 namespace CoordinateNET
 {
-    public class ECEF : IECEF
+    public class ECEF : Vector3d, IPossibleConvertToGEO
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
 
-        public GEO ConvertToGEO(GEO.TypeOfEllipsoid ellipsoid) 
+        public GEO2d ConvertToGEO(GEO2d.TypeOfEllipsoid ellipsoid) 
         {
             return CoordinateConverter.ConvertECEF2GEO(this, ellipsoid);
         }
-        public GEO ConvertToGEO()
+        public GEO2d ConvertToGEO()
         {
             return CoordinateConverter.ConvertECEF2GEO(this);
         }
 
-    }
-
-    public interface IECEF 
-    {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
+        public double GetDistance(ICoordinate2d coordinate)
+        {
+            if (coordinate.GetType() == typeof(ECEF))
+            {
+                return GetDistance((ECEF)coordinate, this);
+            }
+            if (coordinate is IPossibleConvertToECEF)
+            {
+                return GetDistance(((IPossibleConvertToECEF)coordinate).ConvertToECEF(), this);
+            }
+            throw new Exception();
+        }
     }
 }
