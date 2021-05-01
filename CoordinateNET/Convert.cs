@@ -29,7 +29,7 @@ namespace CoordinateNET
             return new Dictionary<GEO2d.TypeOfEllipsoid, EllipsoidConst>()
             {
                 {GEO2d.TypeOfEllipsoid.WGS84, new EllipsoidConst() { a = 6378137, f_1 = 298.257223563 }},
-                {GEO2d.TypeOfEllipsoid.GRS84, new EllipsoidConst() { a = 6378137, f_1 = 298.257222101 }}
+                {GEO2d.TypeOfEllipsoid.GRS80, new EllipsoidConst() { a = 6378137, f_1 = 298.257222101 }}
             };
         }
         internal static ECEF ConvertGEO2ECEF(GEO2d geo)

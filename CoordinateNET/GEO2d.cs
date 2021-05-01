@@ -12,10 +12,6 @@ namespace CoordinateNET
             this.Ellipsoid = ellipsoid;
         }
 
-        public GEO2d(double latitude, double longitude, double altitude) : this(latitude, longitude, TypeOfEllipsoid.WGS84)
-        {
-            // Nothing
-        }
 
         public GEO2d(double latitude, double longitude) : this(latitude, longitude, TypeOfEllipsoid.WGS84)
         {
@@ -45,7 +41,7 @@ namespace CoordinateNET
         public enum TypeOfEllipsoid
         {
             WGS84,
-            GRS84
+            GRS80
         }
 
         public double GetDistance(GEO2d geo)
