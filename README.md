@@ -15,7 +15,7 @@ However, in the future, I would like to be able to handle 3D coordinates as well
 
 .NET 5.0
 
-## Useage
+## Usage
 
 ### Get point by GEO
 ```cs
