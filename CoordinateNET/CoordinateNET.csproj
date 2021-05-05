@@ -2,7 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>ron0401</Authors>
+    <Company></Company>
+    <Description>This Library can convert coordinate.
+GEO , ECEF , ENU , Local
+This is protptype yet.</Description>
+    <Copyright>ron0401</Copyright>
+    <PackageProjectUrl>https://github.com/ron0401/CoordinateNET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ron0401/CoordinateNET</RepositoryUrl>
+    <PackageReleaseNotes>prototype release</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>https://github.com/ron0401/CoordinateNET/blob/main/LICENSE</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
