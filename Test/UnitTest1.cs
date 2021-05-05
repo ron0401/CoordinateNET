@@ -13,8 +13,8 @@ namespace Test
             var ecef    = geo_1.ConvertToECEF();
             var geo_2   = ecef.ConvertToGEO();
 
-            Assert.IsTrue(System.Math.Abs(geo_1.Latitude - geo_2.Latitude) < 0.0000001);
-            Assert.IsTrue(System.Math.Abs(geo_1.Longitude - geo_2.Longitude) < 0.0000001);
+            Assert.IsTrue(System.Math.Abs(geo_1.Latitude.Value - geo_2.Latitude.Value) < 0.0000001);
+            Assert.IsTrue(System.Math.Abs(geo_1.Longitude.Value - geo_2.Longitude.Value) < 0.0000001);
         }
 
         [TestMethod]
@@ -25,8 +25,8 @@ namespace Test
             var enu     = geo_2.ConvertToENU(geo_1);
             var geo_3   = enu.ConvertToGEO();
 
-            Assert.IsTrue(System.Math.Abs(geo_3.Latitude - geo_2.Latitude) < 0.001);
-            Assert.IsTrue(System.Math.Abs(geo_3.Longitude - geo_2.Longitude) < 0.001);
+            Assert.IsTrue(System.Math.Abs(geo_3.Latitude.Value - geo_2.Latitude.Value) < 0.001);
+            Assert.IsTrue(System.Math.Abs(geo_3.Longitude.Value - geo_2.Longitude.Value) < 0.001);
 
         }
     }

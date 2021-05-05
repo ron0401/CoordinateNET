@@ -14,7 +14,7 @@ This is protptype yet.</Description>
     <RepositoryUrl>https://github.com/ron0401/CoordinateNET</RepositoryUrl>
     <PackageReleaseNotes>prototype release</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseExpression>https://github.com/ron0401/CoordinateNET/blob/main/LICENSE</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>

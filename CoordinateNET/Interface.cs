@@ -35,4 +35,9 @@ namespace CoordinateNET
         public ECEF ConvertToECEF();
         public ENU2d ConvertToENU(IGEO datum);
     }
+
+    public interface IAngle
+    {
+        public double Value { get; set; }
+    }
 }
