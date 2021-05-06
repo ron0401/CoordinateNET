@@ -37,8 +37,8 @@ namespace CoordinateNET
             EllipsoidConst el;
             GetEllipsoidDictionary().TryGetValue(geo.Ellipsoid, out el);
 
-            double b = Math.PI * geo.Latitude / 180.0;
-            double l = Math.PI * geo.Longitude / 180.0;
+            double b = Math.PI * geo.Latitude.Value / 180.0;
+            double l = Math.PI * geo.Longitude.Value / 180.0;
             double N = el.a / Math.Sqrt(1.0 - el.e2 * Math.Pow(Math.Sin(b), 2.0));
 
             return new ECEF()
@@ -57,11 +57,7 @@ namespace CoordinateNET
             double mu = Math.Atan(ecef.Z / p * ((1.0 - el.f) + el.e2 * el.a / r));
 
             double B = Math.Atan((ecef.Z * (1.0 - el.f) + el.e2 * el.a * Math.Pow(Math.Sin(mu), 3)) / ((1.0 - el.f) * (p - el.e2 * el.a * Math.Pow(Math.Cos(mu), 3))));
-            return new GEO2d()
-            {
-                Latitude = 180.0 * B / Math.PI,
-                Longitude = 180.0 * Math.Atan2(ecef.Y, ecef.X) / Math.PI
-            };
+            return new GEO2d(180.0 * B / Math.PI, 180.0 * Math.Atan2(ecef.Y, ecef.X) / Math.PI); 
         }
         internal static GEO2d ConvertECEF2GEO(ECEF ecef)
         {
@@ -75,8 +71,8 @@ namespace CoordinateNET
             double delta_X  = e.X - zero.X;
             double delta_Y  = e.Y - zero.Y;
             double delta_Z  = e.Z - zero.Z;
-            double lambda   = Angle2Radian(geo.Longitude);
-            double phi      = Angle2Radian(geo.Latitude);
+            double lambda   = Angle2Radian(geo.Longitude.Value);
+            double phi      = Angle2Radian(geo.Latitude.Value);
             var enu = new EastAndNorth
             {
                 E = (-1 * sin(lambda))              * delta_X   + (cos(lambda))                   * delta_Y     + (0)           * delta_Z,
@@ -91,8 +87,8 @@ namespace CoordinateNET
         internal static GEO2d ConvertENU2GEO(ENU2d enu)
         {
             var origin      = enu.Datum.ConvertToECEF();
-            double lambda   = Angle2Radian(enu.Datum.Longitude);
-            double phi      = Angle2Radian(enu.Datum.Latitude);
+            double lambda   = Angle2Radian(enu.Datum.Longitude.Value);
+            double phi      = Angle2Radian(enu.Datum.Latitude.Value);
 
             var ecef = new ECEF()
             {

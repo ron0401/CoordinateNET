@@ -7,8 +7,8 @@ namespace CoordinateNET
     {
         public GEO2d(double latitude, double longitude, TypeOfEllipsoid ellipsoid)
         {
-            this.Longitude = longitude;
-            this.Latitude = latitude;
+            this.Longitude = new Longitude(longitude);
+            this.Latitude = new Latitude(latitude);
             this.Ellipsoid = ellipsoid;
         }
 
@@ -32,9 +32,11 @@ namespace CoordinateNET
         {
             return new ENU2d(this, datum);
         }
+        
+        public Longitude Longitude { get; set; } = new Longitude();
+        public Latitude Latitude { get; set; } = new Latitude();
 
-        public double Longitude { get; set; } = 0;
-        public double Latitude { get; set; } = 0;
+
 
         public TypeOfEllipsoid Ellipsoid { get; set; } = TypeOfEllipsoid.WGS84;
 
@@ -48,5 +50,41 @@ namespace CoordinateNET
         {
             throw new NotImplementedException();
         }
+    }
+    public class Latitude : IAngle
+    {
+        public Latitude(double value)
+        {
+            this.Value = value;
+        }
+        public Latitude()
+        {
+
+        }
+        public enum TypeOfLatitude 
+        {
+            North, South
+        }
+        public TypeOfLatitude LatitudeType { get; set; }
+        public double Value { get; set; }
+    }
+
+    public class Longitude : IAngle
+    {
+        public Longitude(double value) 
+        {
+            this.Value = value;
+        }
+        public Longitude()
+        {
+            
+        }
+        public enum TypeOfLongitude 
+        {
+            East, West
+        }
+        public TypeOfLongitude LongitudeType { get; set; } = TypeOfLongitude.East;
+        public double Value { get; set; } = 0;
+
     }
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>ron0401</Authors>
     <Company></Company>
     <Description>This Library can convert coordinate.
@@ -14,7 +14,7 @@ This is protptype yet.</Description>
     <RepositoryUrl>https://github.com/ron0401/CoordinateNET</RepositoryUrl>
     <PackageReleaseNotes>prototype release</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseExpression>https://github.com/ron0401/CoordinateNET/blob/main/LICENSE</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
