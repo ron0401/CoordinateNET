@@ -84,6 +84,14 @@ namespace CoordinateNET
         public override double[] Data { get; set; } = new double[] { 1, 1 };
         public double X { get { return Data[0]; } set { Data[0] = value; } }
         public double Y { get { return Data[1]; } set { Data[1] = value; } }
+        public static double InnerProduct(Vector2d v1, Vector2d v2) 
+        {
+            return (v1.X * v2.X + v1.Y * v2.Y);
+        }
+        public double InnerProduct(Vector2d vector) 
+        {
+            return Vector2d.InnerProduct(this, vector);
+        }
 
     }
     public class Vector3d : Vector2d
