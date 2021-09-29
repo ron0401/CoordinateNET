@@ -71,8 +71,8 @@ namespace CoordinateNET
             double delta_X  = e.X - zero.X;
             double delta_Y  = e.Y - zero.Y;
             double delta_Z  = e.Z - zero.Z;
-            double lambda   = Angle2Radian(geo.Longitude.Value);
-            double phi      = Angle2Radian(geo.Latitude.Value);
+            double lambda   = Angle2Radian(datum.Longitude.Value);
+            double phi      = Angle2Radian(datum.Latitude.Value);
             var enu = new EastAndNorth
             {
                 E = (-1 * sin(lambda))              * delta_X   + (cos(lambda))                   * delta_Y     + (0)           * delta_Z,
