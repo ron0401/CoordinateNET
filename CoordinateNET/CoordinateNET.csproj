@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Authors>ron0401</Authors>
     <Company></Company>
     <Description>This Library can convert coordinate.
@@ -15,6 +15,7 @@ This is protptype yet.</Description>
     <PackageReleaseNotes>prototype release</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression></PackageLicenseExpression>
+    <AssemblyVersion>0.0.4.0</AssemblyVersion>
   </PropertyGroup>
 
 </Project>
