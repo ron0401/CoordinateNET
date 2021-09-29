@@ -36,13 +36,13 @@ namespace Test
             var geo_2 = new GEO2d(35.680793, 139.758468);
             var enu_0 = geo_2.ConvertToENU(geo_1);
             var enu_target = enu_0;
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 var g = enu_target.ConvertToGEO();
                 enu_target = g.ConvertToENU(geo_1);
             }
-            Assert.IsTrue(System.Math.Abs(enu_0.E - enu_target.E) < 0.1);
-            Assert.IsTrue(System.Math.Abs(enu_0.N - enu_target.N) < 0.1);
+            Assert.IsTrue(System.Math.Abs(enu_0.E - enu_target.E) < 0.01);
+            Assert.IsTrue(System.Math.Abs(enu_0.N - enu_target.N) < 0.01);
 
         }
     }
